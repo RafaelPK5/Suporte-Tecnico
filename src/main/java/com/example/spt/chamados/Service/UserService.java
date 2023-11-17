@@ -1,6 +1,8 @@
 package com.example.spt.chamados.Service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +16,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public void createUsuario(UserDTO usuario){
+        userRepository.createUsuario(usuario);
     }
 
-    public User createUser(UserDTO usuario){
-        User slkt = new User();
-        slkt.setUsername(usuario.getUsername());
-        slkt.setPassword(usuario.getPassword());
-        return slkt;
+    public User loginUser(String usuario){
+        return userRepository.loginUser(usuario);
+    }
+    
+    public List<User> listarUsuarios(){
+        return userRepository.listarUsuario();
     }
 }
-
-    

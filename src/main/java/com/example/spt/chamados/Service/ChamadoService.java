@@ -17,16 +17,16 @@ public class ChamadoService {
     private ChamadoRepository chamadoRepository;
 
     public List<Chamado> getAutorDoChamado(User user) {
-        return chamadoRepository.findByAutorDoChamado(user);
+        return chamadoRepository.getAutorDoChamado(user);
     }
 
 
-    public Chamado createSupportTicket(User createdBy, String description) {
+    public void createSupportTicket(User createdBy, String description) {
         Chamado ticket = new Chamado();
         ticket.setAutorDoChamado(createdBy);
         ticket.setDescricao(description);
         ticket.setStatusInit();
         ticket.setDatAtual(LocalDateTime.now());
-        return chamadoRepository.save(ticket);
+        chamadoRepository.createSupportTicket(ticket);
     }
 }

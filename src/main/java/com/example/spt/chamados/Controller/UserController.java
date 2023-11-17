@@ -1,11 +1,14 @@
 package com.example.spt.chamados.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spt.chamados.DTOs.UserDTO;
@@ -19,14 +22,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        return ResponseEntity.ok(user);
+    @GetMapping("/")
+    public ResponseEntity<?> getLoginUser(@RequestParam String username, @RequestParam String password) {
+        User user = userService.loginUser(username);
+        
+        if (password.equals(user.getPassword())) {
+            return ResponseEntity.status(200).body("ok");
+        } else {
+            return ResponseEntity.status(403).body("Não autorizado");
+        }
     }
 
-    // @PostMapping("/login")
-    // public ResponseEntity<User> loginUser(@PathVariable UserDTO usuario){
-      
-    // }
+    @PostMapping("/create")
+    public ResponseEntity<?> createUser(@RequestBody UserDTO usuario) {
+        userService.createUsuario(usuario);
+        return ResponseEntity.status(200).body("Criado!");
+    }
+
+    @GetMapping("/lista")
+    public ResponseEntity<List<User>> listaUser() {
+        List<User> lista = userService.listarUsuarios();
+        return ResponseEntity.ok().body(lista);
+    }
 }

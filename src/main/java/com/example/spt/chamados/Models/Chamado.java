@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.spt.chamados.Interface.ChamadoStatus;
+import com.example.spt.chamados.Enum.ChamadoStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
