@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.spt.chamados.Enum.ChamadoStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "chamado_tb")
 public class Chamado {
 
     @Id
@@ -20,6 +24,8 @@ public class Chamado {
     private Long id;
 
     private String descricao;
+    
+    @Enumerated(EnumType.STRING)
     private ChamadoStatus status;
     private LocalDateTime dataAtual;
 

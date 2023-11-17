@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.spt.chamados.Models.Chamado;
-import com.example.spt.chamados.Models.User;
 import com.example.spt.chamados.Repository.ChamadoRepository;
 
 @Service
@@ -16,17 +15,12 @@ public class ChamadoService {
     @Autowired
     private ChamadoRepository chamadoRepository;
 
-    public List<Chamado> getAutorDoChamado(User user) {
+    public List<Chamado> getAutorDoChamado(String user) {
         return chamadoRepository.getAutorDoChamado(user);
     }
 
-
-    public void createSupportTicket(User createdBy, String description) {
-        Chamado ticket = new Chamado();
-        ticket.setAutorDoChamado(createdBy);
-        ticket.setDescricao(description);
-        ticket.setStatusInit();
-        ticket.setDatAtual(LocalDateTime.now());
-        chamadoRepository.createSupportTicket(ticket);
+    public void createSupportTicket(Chamado createdBy) {
+        createdBy.setDatAtual(LocalDateTime.now());
+        chamadoRepository.createSupportTicket(createdBy);
     }
 }
