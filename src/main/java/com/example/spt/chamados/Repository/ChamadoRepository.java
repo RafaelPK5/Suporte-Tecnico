@@ -19,19 +19,22 @@ public class ChamadoRepository {
 
     @SuppressWarnings("unchecked")
     public List<Chamado> getAutorDoChamado(String user) {
-        List<Chamado> listaChamado = em.createNativeQuery("SELECT * FROM chamado_tb c WHERE c.autor_do_chamado = :username", Chamado.class)
-        .setParameter("username", user)
-        .getResultList();
+        List<Chamado> listaChamado = em.createNativeQuery(
+                "SELECT c.id, c.data_atual, c.descricao, c.status, c.autor_do_chamado_id FROM chamado_tb c JOIN user_tb u ON c.autor_do_chamado_id = u.id WHERE u.username = :user",
+                Chamado.class)
+                .setParameter("user", user)
+                .getResultList();
         return listaChamado;
     }
 
     @Transactional
     public void createSupportTicket(Chamado createdBy) {
-        em.createNativeQuery("INSERT INTO chamado_tb(id,descricao,status,data_atual,autor_do_chamado_id) values(null,?,?,?,?)")
-        .setParameter(1, createdBy.getDescricao())
-        .setParameter(2, 1)
-        .setParameter(3, createdBy.getDatAtual())
-        .setParameter(4, createdBy.getAutorDoChamado().getId())
-        .executeUpdate();
+        em.createNativeQuery(
+                "INSERT INTO chamado_tb(id,descricao,status,data_atual,autor_do_chamado_id) values(null,?,?,?,?)")
+                .setParameter(1, createdBy.getDescricao())
+                .setParameter(2, 1)
+                .setParameter(3, createdBy.getDatAtual())
+                .setParameter(4, createdBy.getAutorDoChamado().getId())
+                .executeUpdate();
     }
 }
