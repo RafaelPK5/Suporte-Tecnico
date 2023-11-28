@@ -22,12 +22,12 @@ public class Chamado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String nomeTicket;
     private String descricao;
     
     @Enumerated(EnumType.STRING)
     private ChamadoStatus status;
-    private LocalDateTime dataAtual;
+    private LocalDateTime dataChamado;
 
     @ManyToOne
     private User autorDoChamado;
@@ -36,10 +36,10 @@ public class Chamado {
     public Chamado() {
     }
 
-    public Chamado(String descricao, ChamadoStatus status, LocalDateTime datAtual, User autorDoChamado) {
+    public Chamado(String descricao, ChamadoStatus status, LocalDateTime dataChamado, User autorDoChamado) {
         this.descricao = descricao;
         this.status = status;
-        this.dataAtual = datAtual;
+        this.dataChamado = dataChamado;
         this.autorDoChamado = autorDoChamado;
     }
 
@@ -71,12 +71,12 @@ public class Chamado {
         this.status = status;
     }
 
-    public LocalDateTime getDatAtual() {
-        return dataAtual;
+    public LocalDateTime getDataChamado() {
+        return dataChamado;
     }
 
-    public void setDatAtual(LocalDateTime datAtual) {
-        this.dataAtual = datAtual;
+    public void setDataChamado(LocalDateTime datChamado) {
+        this.dataChamado = datChamado;
     }
 
     public User getAutorDoChamado() {
@@ -85,6 +85,16 @@ public class Chamado {
 
     public void setAutorDoChamado(User autorDoChamado) {
         this.autorDoChamado = autorDoChamado;
+    }
+
+    
+
+    public String getNomeTicket() {
+        return nomeTicket;
+    }
+
+    public void setNomeTicket(String nomeTicket) {
+        this.nomeTicket = nomeTicket;
     }
 
     @Override

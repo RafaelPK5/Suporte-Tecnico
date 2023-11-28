@@ -19,9 +19,10 @@ public class UserRepository {
 
     @Transactional
     public void createUsuario(UserDTO usuario) {
-        em.createNativeQuery("INSERT INTO user_tb(username,password) values(?,?)")
+        em.createNativeQuery("INSERT INTO user_tb(username,password,email) values(?,?,?)")
                 .setParameter(1, usuario.getUsername())
                 .setParameter(2, usuario.getPassword())
+                .setParameter(3, usuario.getEmail())
                 .executeUpdate();
     }
 
