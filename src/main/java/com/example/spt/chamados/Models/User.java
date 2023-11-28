@@ -1,12 +1,18 @@
 package com.example.spt.chamados.Models;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,10 +28,16 @@ public class User {
     private String password;
     private String email;
 
-    public User(String username, String password, String email) {
+    @OneToMany(mappedBy = "autorDoChamado")
+    private List<Chamado> tickets;
+
+    
+
+    public User(String username, String password, String email, List<Chamado> tickets) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.tickets = tickets;
     }
 
     @Autowired
@@ -89,5 +101,8 @@ public class User {
         this.email = email;
     }
 
-    
+    public List<Chamado> getTickets() {
+        return tickets;
+    }
+
 }
