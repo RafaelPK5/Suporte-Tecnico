@@ -1,11 +1,12 @@
 package com.example.spt.chamados.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 
-import com.example.spt.chamados.Enum.ChamadoStatus;
 import com.example.spt.chamados.Models.Chamado;
 
 import jakarta.persistence.EntityManager;
@@ -51,5 +52,15 @@ public class ChamadoRepository {
                 .setParameter(1, status)
                 .setParameter(2, id)
                 .executeUpdate();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Chamado> relatorios(LocalDateTime primeiraData, LocalDateTime segundaData) {
+        List<Chamado> lista = em
+                .createNativeQuery("SELECT * FROM chamado_tb WHERE dataChamado BETWEEN ? AND ?", Chamado.class)
+                .setParameter(1, primeiraData.toString())
+                .setParameter(2, segundaData.toString())
+                .getResultList();
+        return lista;
     }
 }

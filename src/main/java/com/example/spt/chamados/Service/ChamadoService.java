@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.spt.chamados.Enum.ChamadoStatus;
 import com.example.spt.chamados.Models.Chamado;
 import com.example.spt.chamados.Repository.ChamadoRepository;
 
@@ -27,5 +25,10 @@ public class ChamadoService {
 
     public void alterarStatus(Long id, int status){
         chamadoRepository.alterarStatus(id, status);
+    }
+
+    public List<Chamado> getRelatorios(LocalDateTime  primeiraData, LocalDateTime  segundaData){
+        List<Chamado> lista = chamadoRepository.relatorios(primeiraData, segundaData);
+        return lista;
     }
 }
